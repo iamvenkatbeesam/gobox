@@ -12,11 +12,15 @@ import { DroplocationComponent } from './droplocation/droplocation.component';
 import { PaymenttypeselectionComponent } from './paymenttypeselection/paymenttypeselection.component';
 import { PhoneEmailComponent } from './phone-email/phone-email.component';
 import { PickuplocationComponent } from './pickuplocation/pickuplocation.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
   { path: '',  pathMatch: 'full', redirectTo: 'home' },
 //  { path: '', redirectTo: 'employee', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'contact', component: ContactComponent },
   { path: 'register', component: RegisterComponent },  
   { path: 'login', component: LoginComponent },
   { path: 'employees', component: EmployeeListComponent },

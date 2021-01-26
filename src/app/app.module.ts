@@ -18,6 +18,8 @@ import { DroplocationComponent } from './droplocation/droplocation.component';
 import { PhoneEmailComponent } from './phone-email/phone-email.component';
 import { ProductdescriptionComponent } from './productdescription/productdescription.component';
 import { PaymenttypeselectionComponent } from './paymenttypeselection/paymenttypeselection.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -37,7 +39,9 @@ import { PaymenttypeselectionComponent } from './paymenttypeselection/paymenttyp
     DroplocationComponent,
     PhoneEmailComponent,
     ProductdescriptionComponent,
-    PaymenttypeselectionComponent
+    PaymenttypeselectionComponent,
+    AboutComponent,
+    ContactComponent
     //FontawesomeDemoComponent
   ],
   imports: [
