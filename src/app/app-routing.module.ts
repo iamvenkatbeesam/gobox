@@ -14,6 +14,7 @@ import { PhoneEmailComponent } from './phone-email/phone-email.component';
 import { PickuplocationComponent } from './pickuplocation/pickuplocation.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
+import { MakerequestComponent } from './makerequest/makerequest.component';
 
 const routes: Routes = [
   { path: '',  pathMatch: 'full', redirectTo: 'home' },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'phone_email', component: PhoneEmailComponent},
   { path: 'pickuplocation', component: PickuplocationComponent},
   { path: 'droplocation', component: DroplocationComponent},
-  { path: 'paymenttypeselection', component:PaymenttypeselectionComponent}
+  { path: 'paymenttypeselection', component:PaymenttypeselectionComponent},
+  { path: 'makerequest', component: MakerequestComponent}
   
   
 ];
