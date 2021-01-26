@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~font-awesome/css/font-awesome.css';
+
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);  /* <-- Just for the demo, Yes I like pretty fonts... */
+
+
+.square-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .square {
+    position: relative;
+    flex-basis: calc(18.333% - 80px);
+    margin: 5px;
+    border: 1px solid;
+    box-sizing: border-box;
+  }
+  
+  .square::before {
+    content: '';
+    display: block;
+    padding-top: 50%;
+  }
+  
+  .square .content {
+    position: absolute;
+    top: 0; left: 0;
+    height: 50%;
+    width: 50%;
+  }
+  .butt {
+    border: 1px outset rgba(0, 247, 255, 0.226);
+    background-color: lightBlue;
+    height:200px;
+    width:200px;
+    cursor:pointer;
+}
+
+.butt:hover {
+   background-color: rgb(0, 255, 191);
+    color:white;
+}
