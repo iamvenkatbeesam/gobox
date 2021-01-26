@@ -14,7 +14,7 @@ import { PhoneEmailComponent } from './phone-email/phone-email.component';
 import { PickuplocationComponent } from './pickuplocation/pickuplocation.component';
 
 const routes: Routes = [
-  { path: '',  pathMatch: 'full', redirectTo: '/home' },
+  { path: '',  pathMatch: 'full', redirectTo: 'home' },
 //  { path: '', redirectTo: 'employee', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },  
