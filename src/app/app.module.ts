@@ -20,7 +20,7 @@ import { ProductdescriptionComponent } from './productdescription/productdescrip
 import { PaymenttypeselectionComponent } from './paymenttypeselection/paymenttypeselection.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { RequestserviceComponent } from './requestservice/requestservice.component';
+
 import { MakerequestComponent } from './makerequest/makerequest.component';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -44,7 +44,7 @@ import { MakerequestComponent } from './makerequest/makerequest.component';
     PaymenttypeselectionComponent,
     AboutComponent,
     ContactComponent,
-    RequestserviceComponent,
+  
     MakerequestComponent
     //FontawesomeDemoComponent
   ],
