@@ -13,38 +13,38 @@
         <form [formGroup]="droplocationComponent" (ngSubmit)="onSubmit()"> 
     
         <div class="form-group">
-            <label for="addressLine1">Address line 1:</label>
-            <input type="text" formControlName="addressLine1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.addressLine1.errors }" />
+            <label for="dropaddressLine1">Address line 1:</label>
+            <input type="text" formControlName="dropaddressLine1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dropaddressLine1.errors }" />
             <div *ngIf="submitted && f.addressLine1.errors" class="invalid-feedback">
                 <div *ngIf="f.addressLine1.errors.required">Address line 1: is required</div>
             </div>
         </div>
         <div class="form-group">
-            <label for="addressLine2">Address line 2:</label>
-            <input type="text" formControlName="addressLine2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.addressLine2.errors }" />
+            <label for="dropaddressLine2">Address line 2:</label>
+            <input type="text" formControlName="dropaddressLine2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dropaddressLine2.errors }" />
             <div *ngIf="submitted && f.addressLine2.errors" class="invalid-feedback">
                 <div *ngIf="f.addressLine2.errors.required">Address line 2: is required</div>
             </div>
         </div>
         <div class="form-group">
-            <label for="zipcode">Zip Code :</label>
-            <input type="text" formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }" />
+            <label for="dropzipcode">Zip Code :</label>
+            <input type="text" formControlName="dropzipcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dropzipcode.errors }" />
             <div *ngIf="submitted && f.zipcode.errors" class="invalid-feedback">
                 <div *ngIf="f.zipcode.errors.required">Zip Code is required</div>
             </div>
         </div>
         <div class="form-group">
-            <label for="city">City :</label>
-            <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+            <label for="dropcity">City :</label>
+            <input type="text" formControlName="dropcity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dropcity.errors }" />
             <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
                 <div *ngIf="f.city.errors.required">City is required</div>
             </div>
         </div>
         
         <div class="form-group"> 
-            <label for="country">Country :</label>
-            <select  name="country" formControlName="country"  
-            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }"  >
+            <label for="dropcountry">Country :</label>
+            <select  name="dropcountry" formControlName="dropcountry"  
+            class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dropcountry.errors }"  >
             <option value="">Choose a country</option>
                 <option value="GB">United Kingdom</option>
                 <option value="AL">Albania</option>

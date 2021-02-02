@@ -13,38 +13,59 @@
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
                         <!-- To configure the contact form email address, go to mail/contact_me.js and update the email address in the Angular file on line 19.-->
-                        <form id="contactForm" name="sentMessage" novalidate="novalidate">
+                        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()"> 
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Name</label>
-                                    <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name." />
+                                    <label for="name">Name</label>
+                                    <input class="form-control" formControlName="name" id="name" type="text" placeholder="Name"  
+                                    data-validation-required-message="Please enter your name." [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                        <div *ngIf="f.name.errors.required">Name is required</div>
+                                    </div>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Email Address</label>
-                                    <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address." />
+                                    <label for="emailId">Email Address</label>
+                                    <input class="form-control" formControlName="emailId" id="emailId" type="text" placeholder="Email Address"
+                                     data-validation-required-message="Please enter your email address." [ngClass]="{ 'is-invalid': submitted && f.emailId.errors }" />
+                                     <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.emailId.errors.required">Email Address is required</div>
+                                    </div>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Phone Number</label>
-                                    <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number." />
+                                    <label for="phonenumber">Phone Number</label>
+                                    <input class="form-control" formControlName="phonenumber" id="phonenumber" type="text" placeholder="Phone Number"  
+                                    data-validation-required-message="Please enter your phone number." [ngClass]="{ 'is-invalid': submitted && f.phonenumber.errors }" />
+                                    <div *ngIf="submitted && f.phonenumber.errors" class="invalid-feedback">
+                                        <div *ngIf="f.phonenumber.errors.required">Phone Number is required</div>
+                                    </div>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                    <label>Message</label>
-                                    <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
+                                    <label for="message">Message</label>
+                                     <textarea class="form-control" formControlName="message" id="message" type="text" placeholder="Message"
+                                    data-validation-required-message="Please enter a message." [ngClass]="{ 'is-invalid': submitted && f.message.errors }" ></textarea>
+                                    <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+                                        <div *ngIf="f.message.errors.required">Message is required</div>
+                                    </div>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <br />
                             <div id="success"></div>
-                            <div class="form-group"><button class="btn btn-primary btn-xl" id="sendMessageButton" type="submit">Send</button></div>
+                            <div class="form-group">                                                          
+                                    <button [disabled]="loading" class="btn btn-primary btn-xl">
+                                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                        Send
+                                    </button>                        
+                            </div>
                         </form>
                     </div>
                 </div>

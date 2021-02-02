@@ -12,38 +12,38 @@
             <form [formGroup]="pickuplocationComponent" (ngSubmit)="onSubmit()"> 
         
             <div class="form-group">
-                <label for="addressLine1">Address line 1:</label>
-                <input type="text" formControlName="addressLine1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.addressLine1.errors }" />
+                <label for="pickupaddressLine1">Address line 1:</label>
+                <input type="text" formControlName="pickupaddressLine1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pickupaddressLine1.errors }" />
                 <div *ngIf="submitted && f.addressLine1.errors" class="invalid-feedback">
                     <div *ngIf="f.addressLine1.errors.required">Address line 1 is required</div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="addressLine2">Address line 2:</label>
-                <input type="text" formControlName="addressLine2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.addressLine2.errors }" />
+                <label for="pickupaddressLine2">Address line 2:</label>
+                <input type="text" formControlName="pickupaddressLine2" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pickupaddressLine2.errors }" />
                 <div *ngIf="submitted && f.addressLine2.errors" class="invalid-feedback">
                     <div *ngIf="f.addressLine2.errors.required">Address line 2 is required</div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="zipcode">Zip Code :</label>
-                <input type="text" formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }" />
+                <label for="pickupzipcode">Zip Code :</label>
+                <input type="text" formControlName="pickupzipcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pickupzipcode.errors }" />
                 <div *ngIf="submitted && f.zipcode.errors" class="invalid-feedback">
                     <div *ngIf="f.zipcode.errors.required">Zip Code is required</div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="city">City :</label>
-                <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+                <label for="pickupcity">City :</label>
+                <input type="text" formControlName="pickupcity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pickupcity.errors }" />
                 <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
                     <div *ngIf="f.city.errors.required">City is required</div>
                 </div>
             </div>
             
             <div class="form-group"> 
-                <label for="country">Country :</label>
-                <select  name="country" formControlName="country"  
-                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }"  >
+                <label for="pickupcountry">Country :</label>
+                <select  name="pickupcountry" formControlName="pickupcountry"  
+                class="form-control" [ngClass]="{ 'is-invalid': submitted && f.pickupcountry.errors }"  >
                 <option value="">Choose a country</option>
                     <option value="GB">United Kingdom</option>
                     <option value="AL">Albania</option>

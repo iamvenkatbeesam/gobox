@@ -26,11 +26,11 @@ export class PickuplocationComponent implements OnInit {
 
   ngOnInit() {
     this.pickuplocationComponent = this.formBuilder.group({
-      addressLine1: ['', Validators.required],
-      addressLine2: ['', Validators.required],
-      zipcode: ['', [Validators.required, Validators.minLength(7)]],
-      city: ['', Validators.required],
-      country: ['',Validators.required]
+      pickupaddressLine1: ['', Validators.required],
+      pickupaddressLine2: ['', Validators.required],
+      pickupzipcode: ['', [Validators.required, Validators.minLength(7)]],
+      pickupcity: ['', Validators.required],
+      pickupcountry: ['',Validators.required]
     });
 }
 
