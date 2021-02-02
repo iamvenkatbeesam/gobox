@@ -24,8 +24,12 @@ import { MakerequestComponent } from './makerequest/makerequest.component';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpInterceptorService } from './_services/httpInterceptor.service';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
+import { AgGridModule } from 'ag-grid-angular';
+import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+ 
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.default
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,10 +56,13 @@ import { HttpInterceptorService } from './_services/httpInterceptor.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    FormsModule, 
-    ReactiveFormsModule
+    FormsModule,
    // FontAwesomeModule
+   NgWizardModule.forRoot(ngWizardConfig),
+   AgGridModule.withComponents([])
+
   ],
   providers: [
     {

@@ -1,1 +1,152 @@
-<p>makerequest works!</p>
+<ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
+
+    <ng-wizard-step [title]="'Step 1'" [description]="'Step 1 description'" [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this,regForm)">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <form [formGroup]="regForm">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" formControlName="firstName" class="form-control" placeholder="First Name" [ngClass]="{ 'is-invalid': submitted && formData.firstName.errors }" />
+                            <div *ngIf="submitted && formData.firstName.errors" class="invalid-feedback">
+                                <div *ngIf="formData.firstName.errors.required">First Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name" [ngClass]="{ 'is-invalid': submitted && formData.lastName.errors }" />
+                            <div *ngIf="submitted && formData.lastName.errors" class="invalid-feedback">
+                                <div *ngIf="formData.lastName.errors.required">Last Name is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" formControlName="email" class="form-control" placeholder="abc@gmail.com" [ngClass]="{ 'is-invalid': submitted && formData.email.errors }" />
+                            <div *ngIf="submitted && formData.email.errors" class="invalid-feedback">
+                                <div *ngIf="formData.email.errors.required">Email is required</div>
+                                <div *ngIf="formData.email.errors.email">Email must be a valid email address</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" formControlName="password" class="form-control" placeholder="***********" [ngClass]="{ 'is-invalid': submitted && formData.password.errors }" />
+                            <div *ngIf="submitted && formData.password.errors" class="invalid-feedback">
+                                <div *ngIf="formData.password.errors.required">Password is required</div>
+                                <div *ngIf="formData.password.errors.minlength">Password must be at least 6 characters</div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-wizard-step>
+
+
+    <ng-wizard-step [title]="'Step 2'" [description]="'Step 2 description'" [canEnter]="isValidTypeBoolean" [canExit]="isaddressformvalid.bind(this,address)">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <form [formGroup]="address">
+                        <div class="form-group">
+                            <label>Address 1</label>
+                            <input type="text" formControlName="address1" class="form-control" placeholder="Address1" [ngClass]="{ 'is-invalid': check && addressform.address1.errors }" />
+                            <div *ngIf="check && addressform.address1.errors" class="invalid-feedback">
+                                <div *ngIf="addressform.address1.errors.required">Address1 is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Address 2</label>
+                            <input type="text" formControlName="address2" class="form-control" placeholder="Address2" [ngClass]="{ 'is-invalid': check && addressform.address2.errors }" />
+                            <div *ngIf="check && addressform.address2.errors" class="invalid-feedback">
+                                <div *ngIf="addressform.address2.errors.required">Address2 is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Land Mark</label>
+                            <input type="text" formControlName="landmark" class="form-control" placeholder="Landmark" [ngClass]="{ 'is-invalid': check && addressform.landmark.errors }" />
+                            <div *ngIf="check && addressform.landmark.errors" class="invalid-feedback">
+                                <div *ngIf="addressform.landmark.errors.required">landmark is required</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-wizard-step>
+
+
+
+
+    <ng-wizard-step [title]="'Step 3'" [description]="'Step 3 description'" [canEnter]="isValidTypeBoolean" [canExit]="iscontactdetailsformvalid.bind(this,contact)">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <form [formGroup]="contact">
+                        <div class="form-group">
+                            <label>Contact 1</label>
+                            <input type="text" formControlName="contact1" class="form-control" placeholder="Contact1" [ngClass]="{ 'is-invalid': verify && contactform.contact1.errors }" />
+                            <div *ngIf="verify && contactform.contact1.errors" class="invalid-feedback">
+                                <div *ngIf="contactform.contact1.errors.required">Contact1 is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact 2</label>
+                            <input type="text" formControlName="contact2" class="form-control" placeholder="contact2" [ngClass]="{ 'is-invalid': verify && contactform.contact2.errors }" />
+                            <div *ngIf="verify && contactform.contact2.errors" class="invalid-feedback">
+                                <div *ngIf="contactform.contact2.errors.required">Contact2 is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" formControlName="location" class="form-control" placeholder="Location" [ngClass]="{ 'is-invalid': verify && contactform.location.errors }" />
+                            <div *ngIf="verify && contactform.location.errors" class="invalid-feedback">
+                                <div *ngIf="contactform.location.errors.required">location is required</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-wizard-step>
+
+
+
+    <ng-wizard-step [title]="'Step 4'" [description]="'Step 4 description'" [canEnter]="isValidTypeBoolean" [canExit]="ispaymentdetailsformvalid.bind(this,payment)">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <form [formGroup]="payment">
+                        <div class="form-group">
+                            <label>Credit Card</label>
+                            <input type="text" formControlName="creditcard" class="form-control" placeholder="CreditCardDetails" [ngClass]="{ 'is-invalid': registered && paymentform.creditcard.errors }" />
+                            <div *ngIf="registered && paymentform.creditcard.errors" class="invalid-feedback">
+                                <div *ngIf="paymentform.creditcard.errors.required">Creditcard is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Debit Card</label>
+                            <input type="text" formControlName="debitcard" class="form-control" placeholder="DebitCardDetails" [ngClass]="{ 'is-invalid': registered && paymentform.debitcard.errors }" />
+                            <div *ngIf="registered && paymentform.debitcard.errors" class="invalid-feedback">
+                                <div *ngIf="paymentform.debitcard.errors.required">Debitcard is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Digital Pay</label>
+                            <input type="text" formControlName="upi" class="form-control" placeholder="UPI" [ngClass]="{ 'is-invalid': registered && paymentform.upi.errors }" />
+                            <div *ngIf="registered && paymentform.upi.errors" class="invalid-feedback">
+                                <div *ngIf="paymentform.upi.errors.required">Upi is required</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ng-wizard-step>
+
+
+
+</ng-wizard>

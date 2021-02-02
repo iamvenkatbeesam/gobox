@@ -11,6 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
+
+  columnDefs = [
+    { field: 'make' },
+    { field: 'model' },
+    { field: 'price'}
+   ];
+
+rowData = [
+    { make: 'Toyota', model: 'Celica', price: 35000 },
+    { make: 'Ford', model: 'Mondeo', price: 32000 },
+    { make: 'Porsche', model: 'Boxter', price: 72000 }
+  ];
+
+
+
   employees: Observable<Employee[]>;
 
   constructor(private employeeService: EmployeeService,
