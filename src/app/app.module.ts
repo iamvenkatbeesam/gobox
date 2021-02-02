@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -20,8 +20,9 @@ import { ProductdescriptionComponent } from './productdescription/productdescrip
 import { PaymenttypeselectionComponent } from './paymenttypeselection/paymenttypeselection.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
-import { RequestserviceComponent } from './requestservice/requestservice.component';
 import { MakerequestComponent } from './makerequest/makerequest.component';
+import { LogoutComponent } from './logout/logout.component';
+import { HttpInterceptorService } from './_services/httpInterceptor.service';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -44,19 +45,25 @@ import { MakerequestComponent } from './makerequest/makerequest.component';
     PaymenttypeselectionComponent,
     AboutComponent,
     ContactComponent,
-    RequestserviceComponent,
-    MakerequestComponent
+    MakerequestComponent,
+    LogoutComponent,
     //FontawesomeDemoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
     HttpClientModule,
+    AppRoutingModule,
+    FormsModule, 
     ReactiveFormsModule
    // FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

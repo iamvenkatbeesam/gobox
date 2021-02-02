@@ -14,6 +14,10 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    errorMessage = 'Invalid Credentials';
+    successMessage: string;
+    invalidLogin = false;
+    loginSuccess = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -51,17 +55,36 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return;
         }
-
+            alert("in login submit");
         this.loading = true;
-        this.authenticationService.login(this.f.username.value, this.f.password.value)
-            .pipe(first())
+        this.authenticationService.authenticationService(this.f.username.value, this.f.password.value)
             .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
+                (result) => {
+                    //this.router.navigate([this.returnUrl]);
+                    this.invalidLogin = false;
+                    this.loginSuccess = true;
+                    this.successMessage = 'Login Successful.';
+                    this.router.navigate(['/home']);
                 },
                 error => {
-                    this.alertService.error(error);
-                    this.loading = false;
+                   // this.alertService.error(error);
+                   // this.loading = false;
+                     this.invalidLogin = true;
+                    this.loginSuccess = false;
                 });
     }
+/*
+    handleLogin() {
+        this.authenticationService.authenticationService(this.username, this.password).subscribe((result)=> {
+          this.invalidLogin = false;
+          this.loginSuccess = true;
+          this.successMessage = 'Login Successful.';
+          this.router.navigate(['/hello-world']);
+        }, () => {
+          this.invalidLogin = true;
+          this.loginSuccess = false;
+        });      
+      }
+
+*/
 }
