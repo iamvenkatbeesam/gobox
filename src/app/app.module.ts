@@ -24,7 +24,12 @@ import { ContactComponent } from './contact/contact.component';
 import { MakerequestComponent } from './makerequest/makerequest.component';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
+import { AgGridModule } from 'ag-grid-angular';
+import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+ 
+const ngWizardConfig: NgWizardConfig = {
+  theme: THEME.default
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,8 +58,11 @@ import { MakerequestComponent } from './makerequest/makerequest.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
    // FontAwesomeModule
+   NgWizardModule.forRoot(ngWizardConfig),
+   AgGridModule.withComponents([])
+
   ],
   providers: [],
   bootstrap: [AppComponent]
