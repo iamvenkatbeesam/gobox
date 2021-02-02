@@ -8,33 +8,37 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./makerequest.component.css']
 })
 export class MakerequestComponent implements OnInit {
-  address:FormGroup;
-  regForm:FormGroup;
-  contact:FormGroup;
-  payment:FormGroup;
+  pick_address:FormGroup;
+  userrequestforproduct__makerequest:FormGroup;
+   drop_address:FormGroup;
+  // payment:FormGroup;
   submitted = false;
-  check = false;
-  verify = false;
-  registered = false;
+   check = false;
+   verify = false;
+  // registered = false;
   public newData:any;
+
   
-  
-  stepStates = {
+   stepStates = {
     normal: STEP_STATE.normal,
     disabled: STEP_STATE.disabled,
     error: STEP_STATE.error,
     hidden: STEP_STATE.hidden
-  };
+   };
   
-  config: NgWizardConfig = {
-    selected: 0,
-    theme: THEME.arrows,
-    toolbarSettings: {
+   config: NgWizardConfig = {
+     selected: 0,
+     theme: THEME.arrows,
+     toolbarSettings: {
       toolbarExtraButtons: [
-        { text: 'Finish', class: 'btn btn-info', event: () => { alert("Finished!!!"); } }
+         { text: 'Finish', class: 'btn btn-info', event: () => { 
+          console.log(this.userrequestforproduct__makerequest.value,
+                      this.pick_address.value,
+                      this.drop_address.value,
+                     ); } }
       ],
-    }
-  };
+     }
+   };
  
   constructor(private formBuilder: FormBuilder,
     private ngWizardService: NgWizardService
@@ -43,111 +47,123 @@ export class MakerequestComponent implements OnInit {
 
 
   ngOnInit(): void {
-   this.regForm = this.formBuilder.group({
-      firstName:['', Validators.required],
-      lastName:['', Validators.required],
-      email:['', [Validators.required, Validators.email]],
-      password:['', [Validators.required, Validators.minLength(6)]]
-      
-    });
-    this.address = this.formBuilder.group({
-      
-      address1:['',Validators.required],
-      address2:['',Validators.required],
-      landmark:['',Validators.required]
-    });
-    this.contact = this.formBuilder.group({
-      
-      contact1:['',Validators.required],
-      contact2:['',Validators.required],
-      location:['',Validators.required]
-    });
+   this.userrequestforproduct__makerequest = this.formBuilder.group({
+    userId:[''],
+    pickupAddressId:['' ],
+      dropAddressId:['' ],
+      paymentId:[''],
+      productDes:['',Validators.required]
 
-    this.payment = this.formBuilder.group({
       
-      creditcard:['',Validators.required],
-      debitcard:['',Validators.required],
-      upi:['',Validators.required]
     });
+     this.pick_address = this.formBuilder.group({
+      
+       addressline1:['',Validators.required],
+       addressline2:['',Validators.required],
+       zipcode:['',Validators.required],
+        city:['',Validators.required],
+        county:['',Validators.required],
+        country:['',Validators.required],
+        postcode:['',Validators.required]
 
-  }
+     });
+     this.drop_address = this.formBuilder.group({
+      
+       addressline1:['',Validators.required],
+       addressline2:['',Validators.required],
+       zipcode:['',Validators.required],
+        city:['',Validators.required],
+        county:['',Validators.required],
+        country:['',Validators.required],
+        postcode:['',Validators.required]
+
+     });
+
+    //  this.payment = this.formBuilder.group({
+      
+    //    creditcard:['',Validators.required],
+    //    debitcard:['',Validators.required],
+    //    upi:['',Validators.required]
+    //  });
+
+   }
 
   get formData(){
-    return this.regForm.controls;
+    return this.userrequestforproduct__makerequest.controls;
    }
-   get addressform(){
-    return this.address.controls;
-   }
+    get addressform(){
+     return this.pick_address.controls;
+    }
 
-   get contactform(){
-    return this.contact.controls;
-   }
+    get contactform(){
+     return this.drop_address.controls;
+    }
 
-   get paymentform(){
-    return this.payment.controls;
+  //  get paymentform(){
+  //   return this.payment.controls;
+  //  }
+   showPreviousStep(event?: Event) {
+     this.ngWizardService.previous();
    }
-  showPreviousStep(event?: Event) {
-    this.ngWizardService.previous();
-  }
  
-  showNextStep(event?: Event) {
-    this.ngWizardService.next();
-  }
+   showNextStep(event?: Event) {
+     this.ngWizardService.next();
+   }
  
-  resetWizard(event?: Event) {
-    this.ngWizardService.reset();
-  }
+    resetWizard(event?: Event) {
+      this.ngWizardService.reset();
+    }
  
-  setTheme(theme: THEME) {
+   setTheme(theme: THEME) {
     this.ngWizardService.theme(theme);
-  }
+   }
   
-  stepChanged(args: StepChangedArgs) { 
-  }
+   stepChanged(args: StepChangedArgs) { 
+   }
  
   isValidTypeBoolean: boolean = true;
   
   isValidFunctionReturnsBoolean(args: StepValidationArgs,form:any) {
-    console.log(form);
+    
     this.submitted = true;
-    if(this.regForm.invalid){
+    if(this.userrequestforproduct__makerequest.invalid){
       return;
     }
     return true;
     
   }
-  isaddressformvalid(args: StepValidationArgs,form:any) {
-    console.log(form);
+   isaddressformvalid(args: StepValidationArgs,form:any) {
+     console.log(form);
     this.check = true;
-    if(this.address.invalid){
-      return;
-    }
-    return true;
+     if(this.pick_address.invalid){
+       return;
+     }
+     return true;
     
-  }
+   }
 
-  iscontactdetailsformvalid(args: StepValidationArgs,form:any) {
-    console.log(form);
-    this.verify = true;
-    if(this.contact.invalid){
-      return;
-    }
-    return true;
+   iscontactdetailsformvalid(args: StepValidationArgs,form:any) {
+     console.log(form);
+     this.verify = true;
+     if(this.drop_address.invalid){
+       return;
+     }
+     return true;
     
-  }
+   }
 
-  ispaymentdetailsformvalid(args: StepValidationArgs,form:any) {
-    console.log(form);
-    this.registered = true;
-    if(this.payment.invalid){
-      return;
-    }
-    return true;
+  // ispaymentdetailsformvalid(args: StepValidationArgs,form:any) {
+  //   console.log(form);
+  //   this.registered = true;
+  //   if(this.payment.invalid){
+  //     return;
+  //   }
+  //   return true;
     
-  }
+  // }
  
-  isValidFunctionReturnsObservable(args: StepValidationArgs) {
-    return of(true);
-  }
+   isValidFunctionReturnsObservable(args: StepValidationArgs) {
+     return of(true);
+   }
 
 }
