@@ -13,15 +13,18 @@ import { Router } from '@angular/router';
 export class EmployeeListComponent implements OnInit {
 
   columnDefs = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price'}
+    { field: 'productDescription' },
+    { field: 'pickAddress' },
+    { field: 'dropAddress'},
+    { field: 'status'}
    ];
 
 rowData = [
-    { make: 'Toyota', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 }
+    { productDescription: 'syringe', pickAddress: 'Sydney', dropAddress: 'Australia', status:'checked' },
+    { productDescription: 'thermometre', pickAddress: 'Mexico', dropAddress: 'Los Angels', status:'On The Way' },
+    { productDescription: 'medicalGlove', pickAddress: 'Brazil', dropAddress: 'egypt', status:'submitted'},
+    { productDescription: 'inhaler', pickAddress: 'Russia', dropAddress: 'Italy', status:'done'},
+    { productDescription: 'firstAidKit', pickAddress: 'India', dropAddress: 'Delhi', status:'pending'}
   ];
 
 
