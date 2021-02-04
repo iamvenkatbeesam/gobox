@@ -9,8 +9,9 @@ export class HelloWordService {
 
   constructor(private http: HttpClient) { }
 
-  helloWorldService() {
-    //const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('javaguides' + ':' + 'password') });
-    return this.http.get<Message>('http://localhost:57263/gobox-rest/api/medical/greeting');
-  }
+  //Here getting Greeting from Backend project using URL
+     // helloWorldService() {
+        //const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa('javaguides' + ':' + 'password') });
+     //   return this.http.get<Message>('http://localhost:57263/gobox-rest/api/medical/greeting');
+     // }
 }

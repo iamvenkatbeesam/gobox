@@ -7,19 +7,21 @@ import { User } from '../_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-
-    
-  
+ 
    // private baseUrl = 'http://localhost:57263/gobox-rest/api/medical';
-    
+
+   private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+
+  public get isLoggedIn() {
+    return this.loggedIn.asObservable(); // {2}
+  }
 
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
-        
+        this.currentUser = this.currentUserSubject.asObservable();       
     }
 
     public get currentUserValue(): User {
@@ -43,20 +45,20 @@ export class AuthenticationService {
     }
 */
 
-/**  another version code */
+/**  Follwing for the login and logout methods code */
 
  // BASE_PATH: 'http://localhost:8080'
  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
  public username: String;
  public password: String;
-
  
  authenticationService(username: String, password: String) {
-    alert("in authenticationService");
-    //return this.http.get(`http://localhost:8080/api/v1/basicauth`,
+    alert("in login submit");
     return this.http.get(`http://localhost:57263/gobox-rest/api/medical/basicauth`,
-     { headers: { authorization: this.createBasicAuthToken(username, password) } }).pipe(map((res) => {
+     { 
+       headers: { authorization: this.createBasicAuthToken(username, password) } 
+     }).pipe(map((res) => {
        this.username = username;
        this.password = password;
        this.registerSuccessfulLogin(username, password);
@@ -68,13 +70,26 @@ export class AuthenticationService {
  }
 
  registerSuccessfulLogin(username, password) {
+  alert("Inside registerSuccessfulLogin");
    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+   localStorage.setItem('currentUser', JSON.stringify(username));
+   this.loggedIn.next(true);
+   this.currentUserSubject.next(username);
  }
 
  logout() {
+
+  alert("Inside logout1");
+  console.log("check1"+JSON.stringify(this.username));
    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
    this.username = null;
    this.password = null;
+   localStorage.removeItem('currentUser');
+   this.loggedIn.next(false);
+  this.currentUserSubject.next(null);
+  console.log("check2"+JSON.stringify(this.username));
+  alert("Inside logout2");
+  
  }
 
  isUserLoggedIn() {
