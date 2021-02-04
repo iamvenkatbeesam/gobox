@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./makerequest.component.css']
 })
 export class MakerequestComponent implements OnInit {
+  isSubmitted=false;
   payment_selection:FormGroup
   pick_address:FormGroup;
   userrequestforproduct__makerequest:FormGroup;
@@ -36,7 +37,7 @@ export class MakerequestComponent implements OnInit {
           console.log(this.userrequestforproduct__makerequest.value,
                       this.pick_address.value,
                       this.drop_address.value,
-                      this.payment_selection.value
+                       this.payment_selection.value
                      ); } }
       ],
      }
@@ -88,12 +89,14 @@ export class MakerequestComponent implements OnInit {
     //    upi:['',Validators.required]
     //  });
 
-    this.payment_selection = this.formBuilder.group({
-      payment: ['', [Validators.required]]
-    })
+     this.payment_selection = this.formBuilder.group({
+       payment: ['', Validators.required]
+     })
 
    }
-
+ get myForm() {  
+    return this.payment_selection.get("payment");
+  }
   get formData(){
     return this.userrequestforproduct__makerequest.controls;
    }

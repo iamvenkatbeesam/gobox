@@ -270,25 +270,31 @@
         </ng-wizard-step>
 
         <ng-wizard-step [title]="'Step 4'">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4">
-                        <form [formGroup]="payment_selection">
-                            <label>Payment Type</label>
-                            <div>
-                                <input id="one" type="radio" value="one" name="Payment">
-                                <label class="custom-control-label" for="one">Card</label>
-                            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <form [formGroup]="payment_selection">
+                        <h1>Payment Type</h1>
+                        <div class="form-check form-check-inline">
+                            <input id="inlineRadio1" type="radio" class="form-check-input" value="Card" name="payment" formControlName="payment">
+                            <label class="form-check-label" for="inlineRadio1">Card</label>
+                        </div>
 
-                            <div>
-                                <input id="two" type="radio" value="two" name="Payment">
-                                <label class="custom-control-label" for="two">Cash</label>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-check form-check-inline">
+                            <input id="inlineRadio2" type="radio" class="form-check-input" value="Cash" name="payment" formControlName="payment">
+                            <label class="form-check-label" for="inlineRadio2">Cash</label>
+                        </div>
+
+                        <div class="invalid-feedback" *ngIf="isSubmitted && myForm.errors?.required">
+                            <p>Please select either value</p>
+                        </div>
+
+                    </form>
                 </div>
-            </div>
-        </ng-wizard-step>
 
+            </div>
+        </div>
+
+    </ng-wizard-step>
     </ng-wizard>
 </section>
