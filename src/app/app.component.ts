@@ -37,8 +37,8 @@ export class AppComponent {
         this.router.navigate(['/dashboard']);
     }
     else{
-        AppComponent.isLoginValue = false;
-        this.router.navigate(['/home']);
+        AppComponent.isLoginValue = true;
+        this.router.navigate(['/dashboard']);
     }
 
     this.isLoggedIn$ = this.authenticationService.isLoggedIn;
@@ -47,9 +47,7 @@ export class AppComponent {
     get staticIsLoggedValue(){
       return AppComponent.isLoginValue;
     }
- // ngOnInit() {
- //   this.currentUser = this.authenticationService.currentUserValue; 
- // }
+
 
    onLogout() {
         this.authenticationService.logout();
