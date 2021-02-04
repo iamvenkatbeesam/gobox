@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '../_models';
+import { AppComponent } from '../app.component';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -71,8 +72,12 @@ export class AuthenticationService {
 
  registerSuccessfulLogin(username, password) {
   alert("Inside registerSuccessfulLogin");
+
    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
    localStorage.setItem('currentUser', JSON.stringify(username));
+
+   AppComponent.isLoginValue = true;
+
    this.loggedIn.next(true);
    this.currentUserSubject.next(username);
  }
@@ -81,14 +86,17 @@ export class AuthenticationService {
 
   alert("Inside logout1");
   console.log("check1"+JSON.stringify(this.username));
+
+   AppComponent.isLoginValue = false;
+
    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
    this.username = null;
    this.password = null;
+
    localStorage.removeItem('currentUser');
    this.loggedIn.next(false);
   this.currentUserSubject.next(null);
-  console.log("check2"+JSON.stringify(this.username));
-  alert("Inside logout2");
+  
   
  }
 

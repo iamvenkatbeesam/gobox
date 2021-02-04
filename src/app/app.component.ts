@@ -15,6 +15,7 @@ export class AppComponent {
 
     currentUser: User;
     isLogin: boolean;
+    static isLoginValue: boolean;
 
     constructor(
         private router: Router,
@@ -24,17 +25,35 @@ export class AppComponent {
         this.isLogin = false;
     }   
 
-    isLoggedIn$: Observable<boolean>;   
+  isLoggedIn$: Observable<boolean>;   
+  
   ngOnInit() {
+    
+
+    let username = localStorage.getItem('currentUser');
+    debugger;
+    if(username !== "" && username !== null){
+        AppComponent.isLoginValue = true;
+        this.router.navigate(['/dashboard']);
+    }
+    else{
+        AppComponent.isLoginValue = false;
+        this.router.navigate(['/home']);
+    }
+
     this.isLoggedIn$ = this.authenticationService.isLoggedIn;
   }               
 
+    get staticIsLoggedValue(){
+      return AppComponent.isLoginValue;
+    }
  // ngOnInit() {
  //   this.currentUser = this.authenticationService.currentUserValue; 
  // }
 
-    logout() {
+   onLogout() {
         this.authenticationService.logout();
-        this.router.navigate(['/login']);
+       // AppComponent.isLoginValue = false;
+      this.router.navigate(['/home']);
     }
 }

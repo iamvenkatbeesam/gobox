@@ -10,19 +10,20 @@
                      <i class="fas fa-bars"></i>
                  </button>
                  <div class="collapse navbar-collapse" id="navbarResponsive" >
-                     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn$">
+                     <ul class="navbar-nav ml-auto" *ngIf="!staticIsLoggedValue">
                          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/home">Home</a></li>
                          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/about">About</a></li>
                          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/contact">Contact</a></li>
                          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/login">login</a></li>
                      </ul>
-                     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn$">
+                     <ul class="navbar-nav ml-auto" *ngIf="staticIsLoggedValue">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/dashboard">Dashboard</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/makerequest">Request Service</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/subscription">Subscription</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/dashboard">History</a></li>  
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" (click)="onLogout()" routerLink="/home">{{currentUser}}Logout</a></li>                                             
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" (click)="onLogout()" >Logout</a></li>                                             
                     </ul>
+                    
                  </div>
              </div>
          </nav>

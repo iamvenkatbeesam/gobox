@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     // convenience getter for easy access to form fields
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
                     this.invalidLogin = false;
                     this.loginSuccess = true;
                     this.successMessage = 'Login Successful.';
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/dashboard']);
                 },
                 error => {
                    // this.alertService.error(error);
