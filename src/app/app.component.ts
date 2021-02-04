@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from './_services';
 import { User } from './_models';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +15,43 @@ export class AppComponent {
 
     currentUser: User;
     isLogin: boolean;
+    static isLoginValue: boolean;
 
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService
     ) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-        this.isLogin = true;
+        this.isLogin = false;
+    }   
+
+  isLoggedIn$: Observable<boolean>;   
+  
+  ngOnInit() {
+    
+
+    let username = localStorage.getItem('currentUser');
+    debugger;
+    if(username !== "" && username !== null){
+        AppComponent.isLoginValue = true;
+        this.router.navigate(['/dashboard']);
+    }
+    else{
+        AppComponent.isLoginValue = true;
+        this.router.navigate(['/dashboard']);
     }
 
-    logout() {
+    this.isLoggedIn$ = this.authenticationService.isLoggedIn;
+  }               
+
+    get staticIsLoggedValue(){
+      return AppComponent.isLoginValue;
+    }
+
+
+   onLogout() {
         this.authenticationService.logout();
-        this.router.navigate(['/login']);
+       // AppComponent.isLoginValue = false;
+      this.router.navigate(['/home']);
     }
 }

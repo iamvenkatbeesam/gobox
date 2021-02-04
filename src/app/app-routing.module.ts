@@ -15,9 +15,11 @@ import { PickuplocationComponent } from './pickuplocation/pickuplocation.compone
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { MakerequestComponent } from './makerequest/makerequest.component';
+import { AuthGuard } from './_models/auth.guard';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 const routes: Routes = [
-  { path: '',  pathMatch: 'full', redirectTo: 'home' },
+  { path: '',  pathMatch: 'full', redirectTo: 'home' , canActivate: [AuthGuard]},
 //  { path: '', redirectTo: 'employee', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -33,7 +35,9 @@ const routes: Routes = [
   { path: 'pickuplocation', component: PickuplocationComponent},
   { path: 'droplocation', component: DroplocationComponent},
   { path: 'paymenttypeselection', component:PaymenttypeselectionComponent},
-  { path: 'makerequest', component: MakerequestComponent}
+  { path: 'makerequest', component: MakerequestComponent},
+  { path: 'subscription', component: SubscriptionComponent},
+  { path: 'history', component: EmployeeListComponent}
   
   
 ];

@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
         private alertService: AlertService
     ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
+        /*if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
-        }
+        }*/
     }
 
     ngOnInit() {
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         });
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     // convenience getter for easy access to form fields
@@ -55,7 +55,6 @@ export class LoginComponent implements OnInit {
         if (this.loginForm.invalid) {
             return;
         }
-            alert("in login submit");
         this.loading = true;
         this.authenticationService.authenticationService(this.f.username.value, this.f.password.value)
             .subscribe(
@@ -64,7 +63,7 @@ export class LoginComponent implements OnInit {
                     this.invalidLogin = false;
                     this.loginSuccess = true;
                     this.successMessage = 'Login Successful.';
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/dashboard']);
                 },
                 error => {
                    // this.alertService.error(error);

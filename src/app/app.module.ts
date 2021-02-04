@@ -26,6 +26,7 @@ import { HttpInterceptorService } from './_services/httpInterceptor.service';
 //import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
+import { ErrorInterceptor } from './_models/error.interceptor';
  
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -50,7 +51,7 @@ const ngWizardConfig: NgWizardConfig = {
     AboutComponent,
     ContactComponent,
     MakerequestComponent,
-    LogoutComponent,
+    LogoutComponent
     //FontawesomeDemoComponent
   ],
   imports: [
@@ -70,6 +71,7 @@ const ngWizardConfig: NgWizardConfig = {
       useClass: HttpInterceptorService,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

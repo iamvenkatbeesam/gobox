@@ -9,20 +9,23 @@ import { AlertService, AuthenticationService } from '../_services';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  message: string;
+ // message: string;
   
   constructor(private helloWorldService: HelloWordService,
       private authenticationService: AuthenticationService,) { }
 
   ngOnInit() {
 
-    console.log("HelloWorldComponent");
+  /*  console.log("HelloWorldComponent");
     this.helloWorldService.helloWorldService().subscribe( (result) => {
       this.message = result.content;
     });
-   // this.authenticationService.getLoggedInUserName().subscribe( (result) => {
-    //  this.message = result.content;
-   // });
-    
+  */
+
+   /* this.authenticationService.getLoggedInUserName().subscribe( (result) => {
+       this.message = result.content;
+    });
+   */ 
+
   }
 }
