@@ -84,7 +84,7 @@ export class AuthenticationService {
 
  logout() {
 
-  alert("Inside logout1");
+  //alert("Inside logout1");
   console.log("check1"+JSON.stringify(this.username));
 
    AppComponent.isLoginValue = false;
