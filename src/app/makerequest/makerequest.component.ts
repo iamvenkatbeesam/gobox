@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../_services';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MedicalserviceService } from '../_services/medicalservice.service';
 @Component({
   selector: 'app-makerequest',
   templateUrl: './makerequest.component.html',
@@ -34,21 +37,32 @@ export class MakerequestComponent implements OnInit {
      toolbarSettings: {
       toolbarExtraButtons: [
          { text: 'Finish', class: 'btn btn-info', event: () => { 
-          console.log(this.userrequestforproduct__makerequest.value,
-                      this.pick_address.value,
-                      this.drop_address.value,
-                       this.payment_selection.value
-                     ); } }
+
+          this.medicalService.makeRequest(this.userrequestforproduct__makerequest.value,
+            this.pick_address.value,
+             this.drop_address.value,
+             this.payment_selection.value)
+          .subscribe(
+              (result) => {
+                  
+                  this.router.navigate(['/dashboard']);
+              },
+              error => {
+                
+                  
+              });
+
+           }}
       ],
      }
    };
  
   constructor(private formBuilder: FormBuilder,
-    private ngWizardService: NgWizardService
-              ) {
-  }
-
-
+    private ngWizardService: NgWizardService,
+    private router: Router,
+        private medicalService: MedicalserviceService
+              ) {}
+              
   ngOnInit(): void {
    this.userrequestforproduct__makerequest = this.formBuilder.group({
     userId:[''],

@@ -61,4 +61,9 @@ export class MedicalserviceService {
     alert("create user in contactusByuser api");
     return this.http.post(`${this.baseUrl}/contactFormByUser`, contactusbyuser);
   }
+
+  makeRequest(productInfo: any,pickInfo:any,dropInfo:any,paymentInfo:any): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/`, {productInfo:productInfo,pickInfo:pickInfo,dropInfo:dropInfo,paymentInfo:paymentInfo});
+  }
+  
 }
