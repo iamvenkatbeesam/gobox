@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             emailId: ['', Validators.required],
+            phoneNumber: ['', Validators.required],
             password: ['', [Validators.required, Validators.minLength(2)]],
             confirmpassword: ['', [Validators.required, Validators.minLength(2)]]
         });
@@ -57,10 +58,8 @@ export class RegisterComponent implements OnInit {
         //if (this.registerForm.invalid) {
         //    return;
        // }
-        alert("in submit3");
+        
         this.loading = true;
-
-        alert(JSON.stringify(this.registerForm.value));
 
 
         this.medicalService.createUser(this.registerForm.value)

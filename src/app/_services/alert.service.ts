@@ -14,6 +14,7 @@ export class AlertService {
                 if (this.keepAfterRouteChange) {
                     // only keep for a single route change
                     this.keepAfterRouteChange = false;
+                   //this.keepAfterRouteChange = true;
                 } else {
                     // clear alert message
                     this.clear();

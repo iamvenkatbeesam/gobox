@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'pickuplocation', component: PickuplocationComponent},
   { path: 'droplocation', component: DroplocationComponent},
   { path: 'paymenttypeselection', component:PaymenttypeselectionComponent},
-  { path: 'makerequest', component: MakerequestComponent},
+  { path: 'makerequest/:id', component: MakerequestComponent},
   { path: 'subscription', component: SubscriptionComponent},
   { path: 'history', component: EmployeeListComponent}
   

@@ -1,25 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MedicalserviceService } from '../_services/medicalservice.service';
+import { first } from 'rxjs/operators';
+import { AlertService } from '../_services';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../_models';
+import { UserInfoDsiplayService } from '../_services/userInfoDisplay';
+import { RequestOrderSuccessDetailsHistory } from '../_services/requestOrderSuccessDetails';
+
 @Component({
   selector: 'app-makerequest',
   templateUrl: './makerequest.component.html',
   styleUrls: ['./makerequest.component.css']
 })
 export class MakerequestComponent implements OnInit {
+ // [x: string]: any;
   isSubmitted=false;
   payment_selection:FormGroup
   pick_address:FormGroup;
   userrequestforproduct__makerequest:FormGroup;
-   drop_address:FormGroup;
+  drop_address:FormGroup;
   // payment:FormGroup;
   submitted = false;
-   check = false;
-   verify = false;
+  check = false;
+  verify = false;
   // registered = false;
   public newData:any;
-
+  //public currentUserValue: Observable<User>;
+  username : string;
+  emailId : string;
+  phonenumber : string;
   
    stepStates = {
     normal: STEP_STATE.normal,
@@ -28,57 +40,68 @@ export class MakerequestComponent implements OnInit {
     hidden: STEP_STATE.hidden
    };
   
-   config: NgWizardConfig = {
-     selected: 0,
-     theme: THEME.arrows,
-     toolbarSettings: {
-      toolbarExtraButtons: [
-         { text: 'Finish', class: 'btn btn-info', event: () => { 
-          console.log(this.userrequestforproduct__makerequest.value,
-                      this.pick_address.value,
-                      this.drop_address.value,
-                       this.payment_selection.value
-                     ); } }
-      ],
-     }
-   };
- 
+
   constructor(private formBuilder: FormBuilder,
-    private ngWizardService: NgWizardService
-              ) {
+    private ngWizardService: NgWizardService,
+    private medicalService: MedicalserviceService,
+    private alertService: AlertService,
+    private userinfoDisplay: UserInfoDsiplayService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private requestOrderSuccessDetailsHistory: RequestOrderSuccessDetailsHistory
+   ) {
+
+     this.emailId = this.userinfoDisplay.emailId;
+     this.phonenumber = this.userinfoDisplay.phonenumber;
+     this.username = this.userinfoDisplay.username;
+
+    /*
+    For user values to show on dashaborad from authentication service
+    this.currentUserValue.subscribe((receiveObjectHere) => {
+      alert(JSON.stringify(receiveObjectHere));
+    });
+    */
+    
   }
 
 
   ngOnInit(): void {
-   this.userrequestforproduct__makerequest = this.formBuilder.group({
-    userId:[''],
-    pickupAddressId:['' ],
-      dropAddressId:['' ],
-      paymentId:[''],
-      productDes:['',Validators.required]
 
+
+      // First get the product id from the current route.
+      const routeParams = this.route.snapshot.paramMap;
+      const productIdofRequestType = Number(routeParams.get('id'));
+
+    
+
+   this.userrequestforproduct__makerequest = this.formBuilder.group({
+      //userId:[''],
+     // pickupAddressId:['' ],
+     // dropAddressId:['' ],
+     // paymentId:[''],
+      productType:[productIdofRequestType,Validators.required],
+      productDes:['',Validators.required],
+      emailId: [this.userinfoDisplay.emailId]
       
     });
      this.pick_address = this.formBuilder.group({
       
-       addressline1:['',Validators.required],
-       addressline2:['',Validators.required],
-       zipcode:['',Validators.required],
-        city:['',Validators.required],
-        county:['',Validators.required],
-        country:['',Validators.required],
-        postcode:['',Validators.required]
+      pick_addressLine1:['',Validators.required],
+      pick_addressLine2:['',Validators.required],
+      pick_city:['',Validators.required],
+      pick_county:['',Validators.required],
+      pick_country:['',Validators.required],
+      pick_postcode:['',Validators.required]
 
      });
      this.drop_address = this.formBuilder.group({
       
-       addressline1:['',Validators.required],
-       addressline2:['',Validators.required],
-       zipcode:['',Validators.required],
-        city:['',Validators.required],
-        county:['',Validators.required],
-        country:['',Validators.required],
-        postcode:['',Validators.required]
+      drop_addressLine1:['',Validators.required],
+      drop_addressLine2:['',Validators.required],
+      drop_city:['',Validators.required],
+      drop_county:['',Validators.required],
+      drop_country:['',Validators.required],
+      drop_postcode:['',Validators.required]
 
      });
 
@@ -90,10 +113,56 @@ export class MakerequestComponent implements OnInit {
     //  });
 
      this.payment_selection = this.formBuilder.group({
-       payment: ['', Validators.required]
+      paymentType: ['', Validators.required]
      })
 
    }
+
+
+   config: NgWizardConfig = {
+    selected: 0,
+    theme: THEME.arrows,
+    toolbarSettings: {
+     toolbarExtraButtons: [
+        { text: 'Finish', class: 'btn btn-info', event: () => { 
+
+         let settings = Object.assign(this.userrequestforproduct__makerequest.value, this.pick_address.value, 
+                                      this.drop_address.value, this.payment_selection.value, this.formData.value);
+         console.log(settings)
+         console.log(this.userrequestforproduct__makerequest.value,
+                     this.pick_address.value,
+                     this.drop_address.value,
+                      this.payment_selection.value,
+                    );                   
+                    //Calling the MEdicalService Class to Post API
+                    this.medicalService.makeRequestFormSubmit(settings)
+                    .pipe(first())
+                    .subscribe(
+                        data => {
+                            this.alertService.success(' Order Request successful', true);
+                           // alert(" Order Request successful:::---"+JSON.stringify(data));
+                            this.makeRequestSuccessfulLogin(data);
+                        },
+                        error => {
+                            this.alertService.error(error);
+                            //this.loading = false;
+                        });
+                   
+                   }}
+     ],
+    }
+  };
+  makeRequestSuccessfulLogin(data) {
+
+    this.requestOrderSuccessDetailsHistory.productDescription = data.productDescription;
+    this.requestOrderSuccessDetailsHistory.pickUpAddress = data.pickUpAddress;
+    this.requestOrderSuccessDetailsHistory.dropUpAddress = data.dropUpAddress;
+    this.requestOrderSuccessDetailsHistory.status = data.status;
+    this.requestOrderSuccessDetailsHistory.productType = data.productType;
+
+   // this.router.navigate(['/history']);
+  }
+
  get myForm() {  
     return this.payment_selection.get("payment");
   }

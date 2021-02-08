@@ -17,7 +17,7 @@
             </ul>
             <ul class="navbar-nav ml-auto" *ngIf="staticIsLoggedValue">
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/dashboard">Dashboard</a></li>
-                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/makerequest">Request Service</a></li>
+               <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/makerequest">Request Service</a></li> -->
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/subscription">Subscription</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" routerLink="/history">History</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger pointerclass" (click)="onLogout()">Logout</a></li>
@@ -90,7 +90,7 @@
                             <!-- Portfolio Modal - Text-->
                             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
                                 itaque. Nam.</p>
-                            <button class="btn btn-primary" data-dismiss="modal" routerLink="/makerequest">
+                            <button class="btn btn-primary" data-dismiss="modal" [routerLink]="['/makerequest',1]">
                                          <i class="fas fa-times fa-fw"></i>
                                          Go To Med box
                                      </button>
@@ -125,7 +125,7 @@
                             <!-- Portfolio Modal - Text-->
                             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
                                 itaque. Nam.</p>
-                            <button class="btn btn-primary" data-dismiss="modal" routerLink="/makerequest">
+                            <button class="btn btn-primary" data-dismiss="modal" [routerLink]="['/makerequest',2]">
                                          <i class="fas fa-times fa-fw"></i>
                                          Open Market box
                                      </button>
@@ -160,7 +160,7 @@
                             <!-- Portfolio Modal - Text-->
                             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
                                 itaque. Nam.</p>
-                            <button class="btn btn-primary" data-dismiss="modal" routerLink="/makerequest">
+                            <button class="btn btn-primary" data-dismiss="modal" [routerLink]="['/makerequest',3]">
                                          <i class="fas fa-times fa-fw"></i>
                                         Open Pick & Drop box
                                      </button>
@@ -195,7 +195,7 @@
                             <!-- Portfolio Modal - Text-->
                             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur
                                 itaque. Nam.</p>
-                            <button class="btn btn-primary" data-dismiss="modal" routerLink="/makerequest">
+                            <button class="btn btn-primary" data-dismiss="modal" [routerLink]="['/makerequest',4]">
                                          <i class="fas fa-times fa-fw"></i>
                                          Open Shop box
                                      </button>

@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
             return;
         }
         this.loading = true;
-        this.authenticationService.authenticationService(this.f.username.value, this.f.password.value)
+        this.authenticationService.authenticationService(this.f.username.value, this.f.password.value, this.loginForm.value)
             .subscribe(
                 (result) => {
                     //this.router.navigate([this.returnUrl]);

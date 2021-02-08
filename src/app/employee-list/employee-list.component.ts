@@ -4,6 +4,11 @@ import { EmployeeService } from "../employee.service";
 import { Employee } from "../employee";
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { RequestOrderSuccessDetailsHistory } from '../_services/requestOrderSuccessDetails';
+import { MedicalserviceService } from '../_services/medicalservice.service';
+import { AlertService } from '../_services';
+import { first } from 'rxjs/operators';
+import { UserInfoDsiplayService } from '../_services/userInfoDisplay';
 
 @Component({
   selector: 'app-employee-list',
@@ -11,6 +16,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
+  productDescription: string;
+  pickUpAddress: string;
+  dropUpAddress: string;
+  status: string;
+  productType: string;
 
   columnDefs = [
     { field: 'productDescription' },
@@ -18,7 +28,7 @@ export class EmployeeListComponent implements OnInit {
     { field: 'dropAddress'},
     { field: 'status'}
    ];
-
+/*
 rowData = [
     { productDescription: 'syringe', pickAddress: 'Sydney', dropAddress: 'Australia', status:'checked' },
     { productDescription: 'thermometre', pickAddress: 'Mexico', dropAddress: 'Los Angels', status:'On The Way' },
@@ -26,20 +36,57 @@ rowData = [
     { productDescription: 'inhaler', pickAddress: 'Russia', dropAddress: 'Italy', status:'done'},
     { productDescription: 'firstAidKit', pickAddress: 'India', dropAddress: 'Delhi', status:'pending'}
   ];
+*/
 
 
-
-  employees: Observable<Employee[]>;
+  //employees: Observable<Employee[]>;
+  historyDetails: Observable<RequestOrderSuccessDetailsHistory[]>;
+  emailId: string;
 
   constructor(private employeeService: EmployeeService,
-    private router: Router) {}
+    private router: Router,
+    private requestOrderSuccessDetailsHistory: RequestOrderSuccessDetailsHistory,
+    private medicalService: MedicalserviceService,
+    private alertService: AlertService,
+    private userinfoDisplay: UserInfoDsiplayService,
+
+
+    ) {
+    
+    /*  this.productDescription =  requestOrderSuccessDetailsHistory.productDescription;
+      this.pickUpAddress =  requestOrderSuccessDetailsHistory.pickUpAddress;
+      this.dropUpAddress =  requestOrderSuccessDetailsHistory.dropUpAddress;
+      this.status =  requestOrderSuccessDetailsHistory.status;
+      this.productType =  requestOrderSuccessDetailsHistory.productType;
+*/
+    this.emailId = this.userinfoDisplay.emailId;
+
+    }
 
   ngOnInit() {
     this.reloadData();
   }
 
   reloadData() {
-    this.employees = this.employeeService.getEmployeesList();
+   // this.requestOrderSuccessDetailsHistory = this.requestOrderSuccessDetailsHistory
+    //this.employees = this.employeeService.getEmployeesList();
+    //this.historyDetails = this.employeeService.getEmployeesList();
+
+    //alert(this.emailId);
+    this.medicalService.getRequestHistoryDetailsList(this.emailId)
+    .pipe(first())
+    .subscribe(
+        data => {
+            this.alertService.success(' Order Request successful', true);
+            //alert(" Order Request successful:::---"+JSON.stringify(data));
+            this.historyDetails = data;
+           // this.makeRequestSuccessfulLogin(data);
+        },
+        error => {
+            this.alertService.error(error);
+            //this.loading = false;
+        });
+    
   }
 
   deleteEmployee(id: number) {

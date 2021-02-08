@@ -3,38 +3,53 @@
         <h3>Make A Request</h3>
         <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
 
-            <ng-wizard-step [title]="'Step 1'" [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this,userrequestforproduct__makerequest)">
+            <ng-wizard-step [title]="'Product Details'" [canEnter]="isValidTypeBoolean" [canExit]="isValidFunctionReturnsBoolean.bind(this,userrequestforproduct__makerequest)">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
                             <form [formGroup]="userrequestforproduct__makerequest">
 
-                                <input type="hidden" formControlName="userId">
+                                <!--<input type="hidden" formControlName="userId">
                                 <input type="hidden" formControlName="pickupAddressId">
                                 <input type="hidden" formControlName="dropAddressId">
                                 <input type="hidden" formControlName="paymentId">
-                                <input type="hidden" formControlName="productDes">
-
+                                <input type="hidden" formControlName="productDes">-->
+                                <input type="hidden" formControlName="emailId" class="form-control"  value="{{emailId}}">
+                               
 
                                 <div class="form-group">
-                                    <label>Name</label>
-                                    <!-- <label>{{}}</label> -->
+                                    <label>Name :</label>
+                                     <label>{{username}}</label>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email Id</label>
-                                    <!-- <label>{{}}</label> -->
+                                    <label>Email Id :</label>
+                                    <label>{{emailId}}</label> 
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Mobile No</label>
-                                    <!-- <label>{{}}</label> -->
+                                    <label>Mobile No :</label>
+                                     <label>{{phonenumber}}</label> 
 
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Product Type</label>
+                                    <select name="productType" formControlName="productType" class="form-control" [ngClass]="{ 'is-invalid': check && formData.productType.errors }">
+                                        <option value="">Choose a Product</option>
+                                        <option value="1">Medical Box</option>
+                                        <option value="2">Market Box</option>
+                                        <option value="3">Pick & Drop Box</option>
+                                        <option value="4">Shop Contact Box</option>
+                                    </select>
+                                    <div *ngIf="submitted && formData.productType.errors" class="invalid-feedback">
+                                        <div *ngIf="formData.productType.errors.required">Product Type Is Required</div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Product Description</label>
                                     <textarea formControlName="productDes" class="form-control" [ngClass]="{ 'is-invalid': submitted && formData.productDes.errors }">
-                            </textarea>
+                                     </textarea>
                                     <div *ngIf="submitted && formData.productDes.errors" class="invalid-feedback">
                                         <div *ngIf="formData.productDes.errors.required">Max Characters to Enter:250 is required</div>
                                     </div>
@@ -46,7 +61,7 @@
             </ng-wizard-step>
 
 
-            <ng-wizard-step [title]="'Step 2'" [canEnter]="isValidTypeBoolean" [canExit]="isaddressformvalid.bind(this,pick_address)">
+            <ng-wizard-step [title]="'Pick up Address'" [canEnter]="isValidTypeBoolean" [canExit]="isaddressformvalid.bind(this,pick_address)">
 
                 <div class="container">
                     <div class="row">
@@ -54,44 +69,38 @@
                             <form [formGroup]="pick_address">
                                 <div class="form-group">
                                     <label>Address Line1</label>
-                                    <input type="text" formControlName="addressline1" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.addressline1.errors }" />
-                                    <div *ngIf="check && addressform.addressline1.errors" class="invalid-feedback">
-                                        <div *ngIf="addressform.addressline1.errors.required">Address Line1 is required</div>
+                                    <input type="text" formControlName="pick_addressLine1" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.pick_addressLine1.errors }" />
+                                    <div *ngIf="check && addressform.pick_addressLine1.errors" class="invalid-feedback">
+                                        <div *ngIf="addressform.pick_addressLine1.errors.required">Address Line1 is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Address Line2</label>
-                                    <input type="text" formControlName="addressline2" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.addressline2.errors }" />
-                                    <div *ngIf="check && addressform.addressline2.errors" class="invalid-feedback">
-                                        <div *ngIf="addressform.addressline2.errors.required">Address Line2 is required</div>
+                                    <input type="text" formControlName="pick_addressLine2" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.pick_addressLine2.errors }" />
+                                    <div *ngIf="check && addressform.pick_addressLine2.errors" class="invalid-feedback">
+                                        <div *ngIf="addressform.pick_addressLine2.errors.required">Address Line2 is required</div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>zip code</label>
-                                    <input type="text" formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.zipcode.errors }" />
-                                    <div *ngIf="check && addressform.zipcode.errors" class="invalid-feedback">
-                                        <div *ngIf="addressform.zipcode.errors.required">zip code is required</div>
-                                    </div>
-                                </div>
+                             
                                 <div class="form-group">
                                     <label>City</label>
-                                    <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.city.errors }" />
-                                    <div *ngIf="check && addressform.city.errors" class="invalid-feedback">
-                                        <div *ngIf="addressform.city.errors.required">City is required</div>
+                                    <input type="text" formControlName="pick_city" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.pick_city.errors }" />
+                                    <div *ngIf="check && addressform.pick_city.errors" class="invalid-feedback">
+                                        <div *ngIf="addressform.pick_city.errors.required">City is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>County</label>
-                                    <input type="text" formControlName="county" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.county.errors }" />
+                                    <input type="text" formControlName="pick_county" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.pick_county.errors }" />
                                     <option value="">Choose a county</option>
-                                    <div *ngIf="check && addressform.county.errors" class="invalid-feedback">
-                                        <div *ngIf="addressform.county.errors.required">County is required</div>
+                                    <div *ngIf="check && addressform.pick_county.errors" class="invalid-feedback">
+                                        <div *ngIf="addressform.pick_county.errors.required">County is required</div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Country </label>
-                                    <select name="pickupcountry" formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.country.errors }">
+                                    <select name="pick_country" formControlName="pick_country" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.pick_country.errors }">
                             <option value="">Choose a country</option>
                                 <option value="GB">United Kingdom</option>
                                 <option value="AL">Albania</option>
@@ -146,9 +155,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Post Code</label>
-                                    <input type="text" formControlName="postcode" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.postcode.errors }" />
-                                    <div *ngIf="check && addressform.postcode.errors" class="invalid-feedback">
-                                        <div *ngIf="addressform.postcode.errors.required">Post Code is required</div>
+                                    <input type="text" formControlName="pick_postcode" class="form-control" [ngClass]="{ 'is-invalid': check && addressform.pick_postcode.errors }" />
+                                    <div *ngIf="check && addressform.pick_postcode.errors" class="invalid-feedback">
+                                        <div *ngIf="addressform.pick_postcode.errors.required">Post Code is required</div>
                                     </div>
                                 </div>
                             </form>
@@ -156,11 +165,7 @@
                     </div>
                 </div>
             </ng-wizard-step>
-
-
-
-
-            <ng-wizard-step [title]="'Step 3'" [canEnter]="isValidTypeBoolean" [canExit]="iscontactdetailsformvalid.bind(this,drop_address)">
+            <ng-wizard-step [title]="'Drop Address'" [canEnter]="isValidTypeBoolean" [canExit]="iscontactdetailsformvalid.bind(this,drop_address)">
 
                 <div class="container">
                     <div class="row">
@@ -168,43 +173,37 @@
                             <form [formGroup]="drop_address">
                                 <div class="form-group">
                                     <label>Address Line1</label>
-                                    <input type="text" formControlName="addressline1" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.addressline1.errors }" />
-                                    <div *ngIf="check && contactform.addressline1.errors" class="invalid-feedback">
-                                        <div *ngIf="contactform.addressline1.errors.required">Address Line1 is required</div>
+                                    <input type="text" formControlName="drop_addressLine1" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.drop_addressLine1.errors }" />
+                                    <div *ngIf="check && contactform.drop_addressLine1.errors" class="invalid-feedback">
+                                        <div *ngIf="contactform.drop_addressLine1.errors.required">Address Line1 is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Address Line2</label>
-                                    <input type="text" formControlName="addressline2" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.addressline2.errors }" />
-                                    <div *ngIf="check && contactform.addressline2.errors" class="invalid-feedback">
-                                        <div *ngIf="contactform.addressline2.errors.required">Address Line2 is required</div>
+                                    <input type="text" formControlName="drop_addressLine2" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.drop_addressLine2.errors }" />
+                                    <div *ngIf="check && contactform.drop_addressLine2.errors" class="invalid-feedback">
+                                        <div *ngIf="contactform.drop_addressLine2.errors.required">Address Line2 is required</div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>zip code</label>
-                                    <input type="text" formControlName="zipcode" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.zipcode.errors }" />
-                                    <div *ngIf="check && contactform.zipcode.errors" class="invalid-feedback">
-                                        <div *ngIf="contactform.zipcode.errors.required">zip code is required</div>
-                                    </div>
-                                </div>
+          
                                 <div class="form-group">
                                     <label>City</label>
-                                    <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.city.errors }" />
-                                    <div *ngIf="check && contactform.city.errors" class="invalid-feedback">
-                                        <div *ngIf="contactform.city.errors.required">City is required</div>
+                                    <input type="text" formControlName="drop_city" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.drop_city.errors }" />
+                                    <div *ngIf="check && contactform.drop_city.errors" class="invalid-feedback">
+                                        <div *ngIf="contactform.drop_city.errors.required">City is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>County</label>
-                                    <input type="text" formControlName="county" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.county.errors }" />
+                                    <input type="text" formControlName="drop_county" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.drop_county.errors }" />
                                     <option value="">Choose a county</option>
-                                    <div *ngIf="check && contactform.county.errors" class="invalid-feedback">
-                                        <div *ngIf="contactform.county.errors.required">County is required</div>
+                                    <div *ngIf="check && contactform.drop_county.errors" class="invalid-feedback">
+                                        <div *ngIf="contactform.drop_county.errors.required">County is required</div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Country </label>
-                                    <select name="pickupcountry" formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.country.errors }">
+                                    <select name="drop_country" formControlName="drop_country" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.drop_country.errors }">
                             <option value="">Choose a country</option>
                                 <option value="GB">United Kingdom</option>
                                 <option value="AL">Albania</option>
@@ -259,9 +258,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Post Code</label>
-                                    <input type="text" formControlName="postcode" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.postcode.errors }" />
-                                    <div *ngIf="check && contactform.postcode.errors" class="invalid-feedback">
-                                        <div *ngIf="contactform.postcode.errors.required">Post Code is required</div>
+                                    <input type="text" formControlName="drop_postcode" class="form-control" [ngClass]="{ 'is-invalid': verify && contactform.drop_postcode.errors }" />
+                                    <div *ngIf="check && contactform.drop_postcode.errors" class="invalid-feedback">
+                                        <div *ngIf="contactform.drop_postcode.errors.required">Post Code is required</div>
                                     </div>
                                 </div>
                             </form>
@@ -270,19 +269,19 @@
                 </div>
             </ng-wizard-step>
 
-            <ng-wizard-step [title]="'Step 4'">
+            <ng-wizard-step [title]="'Payment Type'">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-4">
                             <form [formGroup]="payment_selection">
                                 <h1>Payment Type</h1>
                                 <div class="form-check form-check-inline">
-                                    <input id="inlineRadio1" type="radio" class="form-check-input" value="Card" name="payment" formControlName="payment">
+                                    <input id="inlineRadio1" type="radio" class="form-check-input" value="Card" name="paymentType" formControlName="paymentType">
                                     <label class="form-check-label" for="inlineRadio1">Card</label>
                                 </div>
 
                                 <div class="form-check form-check-inline">
-                                    <input id="inlineRadio2" type="radio" class="form-check-input" value="Cash" name="payment" formControlName="payment">
+                                    <input id="inlineRadio2" type="radio" class="form-check-input" value="Cash" name="paymentType" formControlName="paymentType">
                                     <label class="form-check-label" for="inlineRadio2">Cash</label>
                                 </div>
 

@@ -2,14 +2,15 @@
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 import { User } from '../_models';
 import { AppComponent } from '../app.component';
+import { UserLogin } from '../_models/UserLogin';
+import { UserInfoDsiplayService } from '../_services/userInfoDisplay';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
  
-   // private baseUrl = 'http://localhost:57263/gobox-rest/api/medical';
+ private baseUrl = 'http://localhost:57263/gobox-rest/api/medical';
 
    private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
@@ -20,7 +21,10 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private userinfoDisplay: UserInfoDsiplayService
+        ) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();       
     }
@@ -48,21 +52,21 @@ export class AuthenticationService {
 
 /**  Follwing for the login and logout methods code */
 
- // BASE_PATH: 'http://localhost:8080'
  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
 
  public username: String;
  public password: String;
  
- authenticationService(username: String, password: String) {
-    alert("in login submit");
-    return this.http.get(`http://localhost:57263/gobox-rest/api/medical/basicauth`,
+ authenticationService(username: String, password: String, userLogin: UserLogin) {
+   // return this.http.post(`http://localhost:57263/gobox-rest/api/medical/basicauth`,
+   return this.http.post(`${this.baseUrl}/users/authenticate`, userLogin,
      { 
        headers: { authorization: this.createBasicAuthToken(username, password) } 
      }).pipe(map((res) => {
        this.username = username;
        this.password = password;
-       this.registerSuccessfulLogin(username, password);
+       //alert(JSON.stringify(res));
+       this.registerSuccessfulLogin(res, username, password);
      }));
  }
 
@@ -70,8 +74,7 @@ export class AuthenticationService {
    return 'Basic ' + window.btoa(username + ":" + password)
  }
 
- registerSuccessfulLogin(username, password) {
-  alert("Inside registerSuccessfulLogin");
+ registerSuccessfulLogin(res, username, password) {
 
    sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
    localStorage.setItem('currentUser', JSON.stringify(username));
@@ -79,7 +82,12 @@ export class AuthenticationService {
    AppComponent.isLoginValue = true;
 
    this.loggedIn.next(true);
-   this.currentUserSubject.next(username);
+   this.currentUserSubject.next(res);
+
+   this.userinfoDisplay.username = res.firstName+" "+res.lastName;
+   this.userinfoDisplay.phonenumber = res.phoneNumber;
+   this.userinfoDisplay.emailId = res.emailId;
+
  }
 
  logout() {

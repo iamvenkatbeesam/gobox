@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { ContactusByuser } from '../_models/contactusbyuser';
+import { map } from 'rxjs/operators';
+import { RequestOrderSuccessDetailsHistory } from '../_services/requestOrderSuccessDetails';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,9 @@ export class MedicalserviceService {
 
   private baseUrl = 'http://localhost:57263/gobox-rest/api/medical';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private requestOrderSuccessDEtailsHistory: RequestOrderSuccessDetailsHistory
+    ) { }
 
   getEmployee(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
@@ -41,7 +46,6 @@ export class MedicalserviceService {
   }
 
   createUser(userregister: User): Observable<Object> {
-    alert("create user in api");
     return this.http.post(`${this.baseUrl}/createUser`, userregister);
   }
 
@@ -58,7 +62,19 @@ export class MedicalserviceService {
   }
 
   contactusByuser(contactusbyuser: ContactusByuser): Observable<Object> {
-    alert("create user in contactusByuser api");
     return this.http.post(`${this.baseUrl}/contactFormByUser`, contactusbyuser);
   }
+
+makeRequestFormSubmit(Object: any): Observable<Object>{
+
+  return this.http.post(`${this.baseUrl}/userMakeRequestServiceSave`, Object);
+}
+
+getRequestHistoryDetailsList(emailId: string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/userRequestHistoryDetailsGet/${emailId}`);
+}
+
+
+
+
 }
