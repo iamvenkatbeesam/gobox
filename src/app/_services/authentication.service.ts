@@ -70,6 +70,7 @@ export class AuthenticationService {
      }));
  }
 
+
  createBasicAuthToken(username: String, password: String) {
    return 'Basic ' + window.btoa(username + ":" + password)
  }
