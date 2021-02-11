@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../_models';
 import { UserInfoDsiplayService } from '../_services/userInfoDisplay';
 import { RequestOrderSuccessDetailsHistory } from '../_services/requestOrderSuccessDetails';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-makerequest',
   templateUrl: './makerequest.component.html',
@@ -48,6 +48,8 @@ export class MakerequestComponent implements OnInit {
     private userinfoDisplay: UserInfoDsiplayService,
     private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
+    
     private requestOrderSuccessDetailsHistory: RequestOrderSuccessDetailsHistory
    ) {
 
@@ -142,10 +144,17 @@ export class MakerequestComponent implements OnInit {
                             this.alertService.success(' Order Request successful', true);
                            // alert(" Order Request successful:::---"+JSON.stringify(data));
                             this.makeRequestSuccessfulLogin(data);
+                          
+                            this.toastr.success('Submitted Successfully', 'Request');
                         },
                         error => {
                             this.alertService.error(error);
                             //this.loading = false;
+                            this.userrequestforproduct__makerequest.reset();
+                            this.pick_address.reset();
+                            this.drop_address.reset();
+                            this.payment_selection.reset();
+                            this.toastr.error('Failed', 'Request');
                         });
                    
                    }}

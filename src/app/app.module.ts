@@ -27,6 +27,11 @@ import { HttpInterceptorService } from './_services/httpInterceptor.service';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { ErrorInterceptor } from './_models/error.interceptor';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
  
 const ngWizardConfig: NgWizardConfig = {
   theme: THEME.default
@@ -62,7 +67,12 @@ const ngWizardConfig: NgWizardConfig = {
     FormsModule,
    // FontAwesomeModule
    NgWizardModule.forRoot(ngWizardConfig),
-   AgGridModule.withComponents([])
+   AgGridModule.withComponents([]),
+   CommonModule,
+   BrowserAnimationsModule, 
+   ToastrModule.forRoot({
+    positionClass: 'toast-top-center'
+    }) 
 
   ],
   providers: [

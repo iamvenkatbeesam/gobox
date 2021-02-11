@@ -8,6 +8,8 @@ import { MedicalserviceService } from '../_services/medicalservice.service';
 import { User } from '../_models';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -27,13 +29,17 @@ export class RegisterComponent implements OnInit {
         private authenticationService: AuthenticationService,
         private medicalService: MedicalserviceService,
         private alertService: AlertService,
-        private http: HttpClient
+        private http: HttpClient,
+        private toastr: ToastrService
+        
     ) {
         // redirect to home if already logged in
         //if (this.authenticationService.currentUserValue) {
         //    this.router.navigate(['/']);
         //}
     }
+
+  
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
@@ -58,20 +64,36 @@ export class RegisterComponent implements OnInit {
         //if (this.registerForm.invalid) {
         //    return;
        // }
+       
+       
+       
+       
         
         this.loading = true;
 
-
+        
         this.medicalService.createUser(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
+                  
                     this.alertService.success('Registration successful', true);
                     this.router.navigate(['/login']);
+                    this.toastr.success('Submitted Successfully', 'Registration');
+                    // reset the values after login form successful
+                    this.registerForm.reset();
+                    this.registerForm.get('username').clearValidators();
+                    this.registerForm.get('username').updateValueAndValidity();
+                    this.registerForm.get('password').clearValidators();
+                    this.registerForm.get('password').updateValueAndValidity();
+                    
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
+                    
+                    this.toastr.error('Failed', 'Registration');
+                    
                 });
     }
     

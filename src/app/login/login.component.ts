@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService, AuthenticationService } from '../_services';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -24,14 +25,17 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private toastr: ToastrService
+        
     ) {
         // redirect to home if already logged in
         /*if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }*/
     }
-
+    
+    
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -46,16 +50,18 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit() {
+        
         this.submitted = true;
-
         // reset alerts on submit
         this.alertService.clear();
-
         // stop here if form is invalid
         if (this.loginForm.invalid) {
             return;
         }
-        this.loading = true;
+        
+       
+        
+        //this.loading = true;
         this.authenticationService.authenticationService(this.f.username.value, this.f.password.value, this.loginForm.value)
             .subscribe(
                 (result) => {
@@ -64,13 +70,16 @@ export class LoginComponent implements OnInit {
                     this.loginSuccess = true;
                     this.successMessage = 'Login Successful.';
                     this.router.navigate(['/dashboard']);
+                    
                 },
                 error => {
                    // this.alertService.error(error);
                    // this.loading = false;
                      this.invalidLogin = true;
                     this.loginSuccess = false;
+                    this.toastr.error('Failed', 'Login');
                 });
+                
     }
 /*
     handleLogin() {

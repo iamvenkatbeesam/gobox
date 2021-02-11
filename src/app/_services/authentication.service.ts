@@ -7,6 +7,7 @@ import { AppComponent } from '../app.component';
 import { UserLogin } from '../_models/UserLogin';
 import { UserInfoDsiplayService } from '../_services/userInfoDisplay';
 
+
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
  
@@ -23,7 +24,7 @@ export class AuthenticationService {
 
     constructor(
         private http: HttpClient,
-        private userinfoDisplay: UserInfoDsiplayService
+        private userinfoDisplay: UserInfoDsiplayService,
         ) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();       
@@ -67,6 +68,7 @@ export class AuthenticationService {
        this.password = password;
        //alert(JSON.stringify(res));
        this.registerSuccessfulLogin(res, username, password);
+                    
      }));
  }
 
@@ -113,6 +115,7 @@ export class AuthenticationService {
    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
    if (user === null) return false
    return true
+   
  }
 
  getLoggedInUserName() {
