@@ -37,7 +37,7 @@ export class AppComponent {
         this.router.navigate(['/dashboard']);
     }
     else{
-        AppComponent.isLoginValue = true;
+        AppComponent.isLoginValue = false;
         this.router.navigate(['/login']);
     }
 
